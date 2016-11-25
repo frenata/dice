@@ -37,6 +37,30 @@ func TestRoll(t *testing.T) {
 	}
 }
 
+func TestText(t *testing.T) {
+	roll := "1d20"
+	why := "death save"
+	res, reason, _ := Roll(roll + " " + why)
+	if res.Description() != roll {
+		t.Fatalf("desc does not match roll: %s", roll)
+	}
+	if reason != why {
+		t.Fatalf("reason does not match reason: %s", reason)
+	}
+
+	roll = "1d20v10"
+	res, _, _ = Roll(roll)
+	if res.Description() != roll {
+		t.Fatalf("desc does not match roll: %s", roll)
+	}
+
+	roll = "1w1b2y"
+	res, _, _ = Roll(roll)
+	if res.Description() != roll {
+		t.Fatalf("desc does not match roll: %s", roll)
+	}
+}
+
 func TestResultInt(t *testing.T) {
 	roll := "6d1" // aka 6
 	res, _, _ := Roll(roll)
